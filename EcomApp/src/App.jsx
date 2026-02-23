@@ -12,7 +12,10 @@ export default function App() {
 
   const [cart,setCart]=useState([]);
   const [search, setSearch] = useState("");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('currentUser');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const product=[
     {
       id:1,
@@ -42,10 +45,6 @@ export default function App() {
     // Initialize userdata in localStorage from JSON file if not exists
     if (!localStorage.getItem('userdata')) {
       localStorage.setItem('userdata', JSON.stringify(userData));
-    }
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
     }
   }, []);
 
